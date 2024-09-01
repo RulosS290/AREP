@@ -1,4 +1,4 @@
-package co.edu.MicroSpringBoot;
+package co.edu.microSpringBoot;
 
 
 import java.lang.annotation.Retention;
