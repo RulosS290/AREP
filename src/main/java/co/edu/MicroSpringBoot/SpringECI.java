@@ -1,4 +1,4 @@
-package co.edu.escuealing.reflexionlab.MicroSpringBoot;
+package co.edu.MicroSpringBoot;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;

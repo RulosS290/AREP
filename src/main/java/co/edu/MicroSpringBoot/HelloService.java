@@ -1,4 +1,4 @@
-package co.edu.escuealing.reflexionlab.MicroSpringBoot;
+package co.edu.MicroSpringBoot;
 
 @RestController
 public class HelloService {
