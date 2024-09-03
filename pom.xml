@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>co.edu.microSpringBoot</groupId>
-  <artifactId>microSpringBoot</artifactId>
+  <groupId>co.edu.microspringboot</groupId>
+  <artifactId>microspringboot</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>microSpringBoot</name>
+  <name>microspringboot</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>

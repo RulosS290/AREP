@@ -1,16 +1,13 @@
-package co.edu.microSpringBoot;
+package co.edu.microspringboot;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.annotation.ElementType;
 
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD) // Se puede aplicar a métodos
+@Retention(RetentionPolicy.RUNTIME) // Disponibilidad en tiempo de ejecución
 public @interface RequestMapping {
-    String value();
-    HttpMethod method() default HttpMethod.GET;
-    String[] params() default {};
-    String[] headers() default {};
+    String value() default "";
 }
 

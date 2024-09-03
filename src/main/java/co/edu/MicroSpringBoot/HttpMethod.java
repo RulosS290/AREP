@@ -1,4 +1,4 @@
-package co.edu.microSpringBoot;
+package co.edu.microspringboot;
 
 public enum HttpMethod {
     GET, POST;
