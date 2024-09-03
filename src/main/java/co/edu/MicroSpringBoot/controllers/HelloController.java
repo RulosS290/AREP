@@ -1,8 +1,7 @@
 package co.edu.microspringboot.controllers;
 
-import co.edu.microspringboot.annotations.GetMapping;
-import co.edu.microspringboot.annotations.RequestMapping;
-import co.edu.microspringboot.annotations.RestController;
+import co.edu.microspringboot.annotations.*;
+
 
 @RestController
 public class HelloController {
@@ -17,9 +16,9 @@ public class HelloController {
         return "Hello World!";
     }
 
-    /**@GetMapping("/greet")
-    *public String greet(@RequestParam("name") String name) {
-    *    return "Hello, " + name + "!";
-    *}
-    */
+    @GetMapping("/greet")
+    public String greet(@RequestParam("name") String name) {
+        return "Hello, " + name + "!";
+    }
+    
 }
