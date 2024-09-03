@@ -71,31 +71,31 @@ public class MicroSpringBoot {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             BufferedOutputStream out = new BufferedOutputStream(clientSocket.getOutputStream());
-
+    
             String requestLine = in.readLine();
             if (requestLine == null || requestLine.isEmpty()) {
                 return;
             }
-
+    
             System.out.println("Solicitud recibida: " + requestLine);
             String[] tokens = requestLine.split(" ");
             if (tokens.length < 2) {
                 sendResponse(out, "400 Bad Request", "Bad Request");
                 return;
             }
-
+    
             String method = tokens[0];
             String path = tokens[1];
-
+    
             if (!method.equals("GET")) {
                 sendResponse(out, "405 Method Not Allowed", "Method Not Allowed");
                 return;
             }
-
+    
             String[] pathParts = path.split("\\?");
             String basePath = pathParts[0];
             Map<String, String> queryParams = new HashMap<>();
-
+    
             if (pathParts.length > 1) {
                 String queryString = pathParts[1];
                 String[] params = queryString.split("&");
@@ -106,34 +106,38 @@ public class MicroSpringBoot {
                     }
                 }
             }
-
+    
             Method serviceMethod = services.get(basePath);
             if (serviceMethod != null) {
                 Object[] methodArgs = prepareMethodArguments(serviceMethod, queryParams);
                 Object result = serviceMethod.invoke(controllerInstance, methodArgs);
-
+    
                 if (result instanceof String) {
                     sendResponse(out, "200 OK", (String) result);
                 } else if (result instanceof byte[]) {
-                    sendBinaryResponse(out, "200 OK", (byte[]) result, basePath.endsWith(".png") ? "image/png" : "text/html");
+                    String contentType = basePath.endsWith(".png") ? "image/png" : "text/html";
+                    sendBinaryResponse(out, "200 OK", (byte[]) result, contentType);
                 }
             } else {
                 sendResponse(out, "404 Not Found", "Not Found");
             }
-
+    
         } catch (IOException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }
-
+    
     private void sendBinaryResponse(BufferedOutputStream out, String status, byte[] body, String contentType) throws IOException {
         out.write(("HTTP/1.1 " + status + "\r\n").getBytes());
         out.write(("Content-Type: " + contentType + "\r\n").getBytes());
         out.write(("Content-Length: " + body.length + "\r\n").getBytes());
-        out.write("\r\n".getBytes());
+        out.write("\r\n".getBytes()); // Línea en blanco separando cabeceras del cuerpo
         out.write(body);
         out.flush();
     }
+    
+    
+    
 
     private void sendResponse(BufferedOutputStream out, String status, String body) throws IOException {
         out.write(("HTTP/1.1 " + status + "\r\n").getBytes());

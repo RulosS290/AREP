@@ -34,7 +34,7 @@ public class HelloController {
 
     @GetMapping("/image")
     public byte[] getImage() throws IOException {
-        Path path = Paths.get("target/classes/webroot/png.PNG");
+        Path path = Paths.get("src/main/resources/webroot/png.png");
         return Files.readAllBytes(path);
     }
 }
