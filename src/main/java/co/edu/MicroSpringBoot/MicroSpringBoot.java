@@ -68,62 +68,81 @@ public class MicroSpringBoot {
     }
 
     private void handleClient(Socket clientSocket) {
-    try {
-        BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+        try {
+            BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+            BufferedOutputStream out = new BufferedOutputStream(clientSocket.getOutputStream());
 
-        // Leer la línea de solicitud (e.g., GET /greet?name=Daniel HTTP/1.1)
-        String requestLine = in.readLine();
-        if (requestLine == null || requestLine.isEmpty()) {
-            return;
-        }
+            String requestLine = in.readLine();
+            if (requestLine == null || requestLine.isEmpty()) {
+                return;
+            }
 
-        System.out.println("Solicitud recibida: " + requestLine);
-        String[] tokens = requestLine.split(" ");
-        if (tokens.length < 2) {
-            sendResponse(out, "400 Bad Request", "Bad Request");
-            return;
-        }
+            System.out.println("Solicitud recibida: " + requestLine);
+            String[] tokens = requestLine.split(" ");
+            if (tokens.length < 2) {
+                sendResponse(out, "400 Bad Request", "Bad Request");
+                return;
+            }
 
-        String method = tokens[0];
-        String path = tokens[1];
+            String method = tokens[0];
+            String path = tokens[1];
 
-        if (!method.equals("GET")) {
-            sendResponse(out, "405 Method Not Allowed", "Method Not Allowed");
-            return;
-        }
+            if (!method.equals("GET")) {
+                sendResponse(out, "405 Method Not Allowed", "Method Not Allowed");
+                return;
+            }
 
-        // Parsear la URL para obtener el path y los parámetros
-        String[] pathParts = path.split("\\?");
-        String basePath = pathParts[0];
-        Map<String, String> queryParams = new HashMap<>();
+            String[] pathParts = path.split("\\?");
+            String basePath = pathParts[0];
+            Map<String, String> queryParams = new HashMap<>();
 
-        if (pathParts.length > 1) {
-            String queryString = pathParts[1];
-            String[] params = queryString.split("&");
-            for (String param : params) {
-                String[] keyValue = param.split("=");
-                if (keyValue.length == 2) {
-                    queryParams.put(keyValue[0], keyValue[1]);
+            if (pathParts.length > 1) {
+                String queryString = pathParts[1];
+                String[] params = queryString.split("&");
+                for (String param : params) {
+                    String[] keyValue = param.split("=");
+                    if (keyValue.length == 2) {
+                        queryParams.put(keyValue[0], keyValue[1]);
+                    }
                 }
             }
-        }
 
-        // Obtener el método correspondiente al path
-        Method serviceMethod = services.get(basePath);
-        if (serviceMethod != null) {
-            // Preparar los argumentos del método basados en la anotación @RequestParam
-            Object[] methodArgs = prepareMethodArguments(serviceMethod, queryParams);
-            String responseBody = (String) serviceMethod.invoke(controllerInstance, methodArgs);
-            sendResponse(out, "200 OK", responseBody);
-        } else {
-            sendResponse(out, "404 Not Found", "Not Found");
-        }
+            Method serviceMethod = services.get(basePath);
+            if (serviceMethod != null) {
+                Object[] methodArgs = prepareMethodArguments(serviceMethod, queryParams);
+                Object result = serviceMethod.invoke(controllerInstance, methodArgs);
 
-    } catch (IOException | IllegalAccessException | InvocationTargetException e) {
-        e.printStackTrace();
+                if (result instanceof String) {
+                    sendResponse(out, "200 OK", (String) result);
+                } else if (result instanceof byte[]) {
+                    sendBinaryResponse(out, "200 OK", (byte[]) result, basePath.endsWith(".png") ? "image/png" : "text/html");
+                }
+            } else {
+                sendResponse(out, "404 Not Found", "Not Found");
+            }
+
+        } catch (IOException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
-}
+
+    private void sendBinaryResponse(BufferedOutputStream out, String status, byte[] body, String contentType) throws IOException {
+        out.write(("HTTP/1.1 " + status + "\r\n").getBytes());
+        out.write(("Content-Type: " + contentType + "\r\n").getBytes());
+        out.write(("Content-Length: " + body.length + "\r\n").getBytes());
+        out.write("\r\n".getBytes());
+        out.write(body);
+        out.flush();
+    }
+
+    private void sendResponse(BufferedOutputStream out, String status, String body) throws IOException {
+        out.write(("HTTP/1.1 " + status + "\r\n").getBytes());
+        out.write("Content-Type: text/plain\r\n".getBytes());
+        out.write(("Content-Length: " + body.length() + "\r\n").getBytes());
+        out.write("\r\n".getBytes());
+        out.write(body.getBytes());
+        out.flush();
+    }
 
     private Object[] prepareMethodArguments(Method method, Map<String, String> queryParams) {
         Parameter[] parameters = method.getParameters();
@@ -138,16 +157,6 @@ public class MicroSpringBoot {
         }
 
         return args;
-    }
-
-
-    private void sendResponse(BufferedWriter out, String status, String body) throws IOException {
-        out.write("HTTP/1.1 " + status + "\r\n");
-        out.write("Content-Type: text/plain\r\n");
-        out.write("Content-Length: " + body.length() + "\r\n");
-        out.write("\r\n");
-        out.write(body);
-        out.flush();
     }
 }
 

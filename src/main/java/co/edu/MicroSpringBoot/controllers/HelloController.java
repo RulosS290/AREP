@@ -1,6 +1,11 @@
 package co.edu.microspringboot.controllers;
 
 import co.edu.microspringboot.annotations.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 
 
 @RestController
@@ -20,5 +25,16 @@ public class HelloController {
     public String greet(@RequestParam("name") String name) {
         return "Hello, " + name + "!";
     }
-    
+
+    @GetMapping("/index")
+    public byte[] getHtmlPage() throws IOException {
+        Path path = Paths.get("target/classes/webroot/index.html");
+        return Files.readAllBytes(path);
+    }
+
+    @GetMapping("/image")
+    public byte[] getImage() throws IOException {
+        Path path = Paths.get("target/classes/webroot/png.PNG");
+        return Files.readAllBytes(path);
+    }
 }
