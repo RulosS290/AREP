@@ -1,0 +1,6 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://santiagotorresacosta29:iIKMHU1AOFTbVotR@arep.lcigk.mongodb.net/AREP-AWS?retryWrites=true&w=majority&appName=AREP
+
+
