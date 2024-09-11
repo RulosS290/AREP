@@ -76,7 +76,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ content: content })
+                body: JSON.stringify(content)
             }).then(() => {
                 // Limpiar el contenido del textarea después de enviar el mensaje
                 document.getElementById('messageContent').value = '';
