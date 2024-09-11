@@ -71,7 +71,7 @@
         document.getElementById('sendButton').addEventListener('click', function() {
             const content = document.getElementById('messageContent').value;
             
-            fetch('http://localhost:5000/log', {
+            fetch('http://localhost:35000/log', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

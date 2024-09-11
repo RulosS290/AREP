@@ -8,15 +8,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.web.client.RestTemplate;
+
 @RestController
 public class LogServiceController {
 
     @Autowired
     private MessageService messageService;
 
+    @Autowired
+    private LoadBalancerService loadBalancerService;
+
+    private final RestTemplate restTemplate = new RestTemplate();
+
     @PostMapping("/log")
     public void logMessage(@RequestBody String content) {
-        messageService.saveMessage(content);
+        String logServiceUrl = loadBalancerService.getNextLogServiceUrl();
+        try {
+            restTemplate.postForObject(logServiceUrl, content, Void.class);
+            System.out.println("Message sent to: " + logServiceUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Failed to send message to: " + logServiceUrl);
+        }
     }
 
     @GetMapping("/messages")
@@ -24,9 +38,3 @@ public class LogServiceController {
         return messageService.getLastMessages();
     }
 }
-
-
-
-
-
-
