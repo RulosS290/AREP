@@ -64,14 +64,29 @@
     <h1>Send a Message</h1>
     <textarea id="messageContent" rows="4" cols="50" placeholder="Enter your message here..."></textarea><br>
     <button id="sendButton">Send Message</button>
-
     <a href="/messages">View Last Messages</a>
 
     <script>
+        // Índice global para Round Robin
+        let currentIndex = 0;
+
         document.getElementById('sendButton').addEventListener('click', function() {
             const content = document.getElementById('messageContent').value;
             
-            fetch('http://localhost:35000/log', {
+            // Lista de URLs de servicios
+            const logServiceUrls = [
+                'http://localhost:35001/log',
+                'http://localhost:35002/log',
+                'http://localhost:35003/log'
+            ];
+            
+            // Obtener la URL del servicio actual usando el índice
+            const logServiceUrl = logServiceUrls[currentIndex];
+            // Actualizar el índice para la próxima solicitud
+            currentIndex = (currentIndex + 1) % logServiceUrls.length;
+            
+            // Enviar el mensaje al servicio seleccionado
+            fetch(logServiceUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -87,4 +102,6 @@
     </script>
 </body>
 </html>
+
+
 

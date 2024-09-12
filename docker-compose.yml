@@ -1,14 +1,36 @@
 version: '2'
 
-
 services:
-    web:
+    log-service-1:
         build:
             context: .
             dockerfile: Dockerfile
-        container_name: web
+        container_name: log-service-1
         ports:
-            - "8087:6000"
+            - "35001:6000"  # Mapea el puerto interno al puerto externo
+        environment:
+            - SERVER_PORT=6000
+
+    log-service-2:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: log-service-2
+        ports:
+            - "35002:6000"
+        environment:
+            - SERVER_PORT=6000
+
+    log-service-3:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: log-service-3
+        ports:
+            - "35003:6000"
+        environment:
+            - SERVER_PORT=6000
+
     db:
         image: mongo:3.6.1
         container_name: db
@@ -18,7 +40,7 @@ services:
         ports:
             - 27017:27017
         command: mongod
-        
+
 volumes:
     mongodb:
     mongodb_config:
