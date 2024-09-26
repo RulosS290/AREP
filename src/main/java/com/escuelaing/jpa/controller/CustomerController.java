@@ -1,10 +1,13 @@
-package com.escuelaing.jpa;
+package com.escuelaing.jpa.controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import com.escuelaing.jpa.model.Customer;
+import com.escuelaing.jpa.service.CustormerService;
 
 @Controller
 @RequestMapping("/")

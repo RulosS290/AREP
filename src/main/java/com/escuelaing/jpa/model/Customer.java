@@ -1,4 +1,4 @@
-package com.escuelaing.jpa;
+package com.escuelaing.jpa.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

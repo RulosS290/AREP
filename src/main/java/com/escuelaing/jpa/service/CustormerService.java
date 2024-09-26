@@ -1,9 +1,12 @@
-package com.escuelaing.jpa;
+package com.escuelaing.jpa.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.escuelaing.jpa.model.Customer;
+import com.escuelaing.jpa.repository.CustomerRepository;
 
 @Service
 public class CustormerService {
