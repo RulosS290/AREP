@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD de Clientes</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
     <h1>Lista de Clientes</h1>
@@ -25,30 +26,34 @@
         <tbody>
             <!-- Iterar sobre la lista de clientes en el modelo -->
             <tr th:each="customer : ${customers}">
-                <td th:text="${customer.id}"></td>
-                <td th:text="${customer.firstName}"></td>
-                <td th:text="${customer.lastName}"></td>
-                <td th:text="${customer.address}"></td>
-                <td th:text="${customer.price}"></td>
-                <td th:text="${customer.size}"></td>
-                <td th:text="${customer.description}"></td>
-                <td>
-                    <!-- Botón de Actualizar -->
-                    <form th:action="@{/Customers/update/{id}(id=${customer.id})}" method="POST">
-                        <input type="hidden" th:value="${customer.firstName}" name="firstName">
-                        <input type="hidden" th:value="${customer.lastName}" name="lastName">
-                        <input type="hidden" th:value="${customer.address}" name="address">
-                        <input type="hidden" th:value="${customer.price}" name="price">
-                        <input type="hidden" th:value="${customer.size}" name="size">
-                        <input type="hidden" th:value="${customer.description}" name="description">
+                <form th:action="@{/Customers/update/{id}(id=${customer.id})}" method="POST">
+                    <td th:text="${customer.id}"></td>
+                    <td>
+                        <input type="text" th:value="${customer.firstName}" name="firstName" readonly>
+                    </td>
+                    <td>
+                        <input type="text" th:value="${customer.lastName}" name="lastName" readonly>
+                    </td>
+                    <td>
+                        <input type="text" th:value="${customer.address}" name="address" required>
+                    </td>
+                    <td>
+                        <input type="number" th:value="${customer.price}" name="price" required>
+                    </td>
+                    <td>
+                        <input type="number" th:value="${customer.size}" name="size" required>
+                    </td>
+                    <td>
+                        <input type="text" th:value="${customer.description}" name="description" required>
+                    </td>
+                    <td>
                         <input type="submit" value="Actualizar">
-                    </form>
-
-                    <!-- Botón de Eliminar -->
-                    <form th:action="@{/Customers/delete/{id}(id=${customer.id})}" method="POST">
-                        <input type="submit" value="Eliminar">
-                    </form>
-                </td>
+                        <!-- Botón de Eliminar dentro de la misma columna -->
+                        <form th:action="@{/Customers/delete/{id}(id=${customer.id})}" method="POST" style="display:inline;">
+                            <input type="submit" value="Eliminar">
+                        </form>
+                    </td>
+                </form>
             </tr>
         </tbody>
     </table>
@@ -57,24 +62,25 @@
     <h2>Crear Cliente</h2>
     <form action="/Customers/create" method="POST">
         <label for="firstName">Nombre:</label>
-        <input type="text" id="firstName" name="firstName"><br>
+        <input type="text" id="firstName" name="firstName" required><br>
         
         <label for="lastName">Apellido:</label>
-        <input type="text" id="lastName" name="lastName"><br>
+        <input type="text" id="lastName" name="lastName" required><br>
         
         <label for="address">Dirección:</label>
-        <input type="text" id="address" name="address"><br>
+        <input type="text" id="address" name="address" required><br>
 
         <label for="price">Precio:</label>
-        <input type="number" id="price" name="price"><br>
+        <input type="number" id="price" name="price" required><br>
 
         <label for="size">Tamaño:</label>
-        <input type="number" id="size" name="size"><br>
+        <input type="number" id="size" name="size" required><br>
 
         <label for="description">Descripción:</label>
-        <input type="text" id="description" name="description"><br>
+        <input type="text" id="description" name="description" required><br>
 
         <input type="submit" value="Crear Cliente">
     </form>
 </body>
 </html>
+
