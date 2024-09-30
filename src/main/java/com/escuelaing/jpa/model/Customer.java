@@ -5,21 +5,36 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+/**
+ * Clase que representa un cliente en el sistema.
+ */
 @Entity
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String address;
-    private int price;
-    private int size;
-    private String description;
+    private Long id; // ID único del cliente.
 
+    private String firstName; // Nombre del cliente.
+    private String lastName; // Apellido del cliente.
+    private String address; // Dirección del cliente.
+    private int price; // Precio asociado al cliente.
+    private int size; // Tamaño asociado al cliente.
+    private String description; // Descripción del cliente.
+
+    // Constructor protegido para uso interno.
     protected Customer() {}
 
+    /**
+     * Constructor que inicializa un nuevo cliente.
+     *
+     * @param firstName  Nombre del cliente.
+     * @param lastName   Apellido del cliente.
+     * @param address    Dirección del cliente.
+     * @param price      Precio asociado al cliente.
+     * @param size       Tamaño asociado al cliente.
+     * @param description Descripción del cliente.
+     */
     public Customer(String firstName, String lastName, String address, int price, int size, String description) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -35,6 +50,8 @@ public class Customer {
             "Customer[id=%d, firstName='%s', lastName='%s', address='%s', price=%d, size=%d, description='%s']",
             id, firstName, lastName, address, price, size, description);
     }
+
+    // Métodos getter y setter
 
     public Long getId() {
         return id;
@@ -92,4 +109,5 @@ public class Customer {
         this.description = description;
     }
 }
+
 
