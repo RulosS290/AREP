@@ -37,7 +37,7 @@ input[type="number"] {
 
 /* Button styles */
 input[type="submit"] {
-    background-color: #007BFF; /* Bootstrap primary color */
+    background-color: #4CAF50; /* Bootstrap primary color */
     color: white;
     padding: 10px 15px;
     border: none;
@@ -47,7 +47,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+    background-color: #4CAF50; /* Darker shade on hover */
 }
 
 /* Alert styles */
