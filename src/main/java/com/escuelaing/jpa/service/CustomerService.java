@@ -5,6 +5,8 @@ import java.util.List;
 import javax.management.relation.RelationNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
@@ -50,6 +52,10 @@ public class CustomerService {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new ResourceAccessException("Customer not found with id " + id));
         customerRepository.delete(customer);
+    }
+
+    public Page<Customer> getCustomers(int page, int size) {
+        return customerRepository.findAll(PageRequest.of(page, size));
     }
 
 }
