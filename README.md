@@ -21,7 +21,8 @@ Este proyecto consiste en un sistema CRUD (Crear, Leer, Actualizar, Eliminar) pa
 7. **Opciones de Mejora:** Añadir funcionalidades opcionales, como paginación, búsqueda avanzada y retroalimentación del usuario sobre las operaciones realizadas.
 
 ### Empezando
-Estas instrucciones le permitirán obtener una copia del proyecto en funcionamiento en su máquina local para fines de desarrollo y prueba. Consulte la sección Implementación para obtener notas sobre cómo implementar el proyecto en un sistema en vivo.
+
+Estas instrucciones le permitirán obtener una copia del proyecto en funcionamiento en su máquina local para fines de desarrollo y prueba.
 
 
 ### Requisitos
