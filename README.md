@@ -70,6 +70,11 @@ mvn compile
 ```bash
 mvn test
 ```
+* Correr la aplicación
+```bash
+mvn spring-boot:run
+```
+
 
 En caso de correrlo de forma local para no depender de AWS
 
