@@ -10,7 +10,7 @@ Este taller consiste en implementar un Árbol de Búsqueda Binaria (BST) en Java
 * [Maven](https://maven.apache.org/) - Manejador de dependencias
 * [Java](https://www.oracle.com/java/technologies/downloads/#java17) - Lenguaje de programación
 
-###Instalación
+### Instalación
 
 Realice los siguientes pasos para clonar el proyecto en su máquina local.
 
