@@ -1,4 +1,4 @@
-# AREP-Taller6: Taller de árboles binarios
+# AREP-Taller7: Taller de árboles binarios
 
 ## Descripción del Taller
 
