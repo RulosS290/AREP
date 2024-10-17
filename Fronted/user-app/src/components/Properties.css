@@ -1,0 +1,62 @@
+/* General container styles */
+.container {
+    margin-top: 50px;
+  }
+  
+  /* Log out button alignment */
+  .d-flex.justify-content-end {
+    margin-bottom: 20px;
+  }
+  
+  /* Card styles for the form */
+  .card {
+    padding: 20px;
+    margin-bottom: 50px;
+  }
+  
+  /* Form and button styles */
+  .form-label {
+    font-weight: bold;
+  }
+  
+  textarea.form-control {
+    resize: none;
+  }
+  
+  .btn-primary {
+    width: 100%;
+  }
+  
+  /* Table styles */
+  .table-responsive {
+    margin-top: 30px;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+  
+  .table-dark {
+    background-color: #343a40;
+    color: #fff;
+  }
+  
+  .table-dark th {
+    text-align: center;
+  }
+  
+  .table td {
+    vertical-align: middle;
+  }
+  
+  .btn-warning {
+    margin-right: 10px;
+  }
+  
+  /* Media query to adjust the button text visibility */
+  @media (max-width: 768px) {
+    .btn .d-md-inline {
+      display: none;
+    }
+  }
+  

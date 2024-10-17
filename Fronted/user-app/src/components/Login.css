@@ -1,0 +1,29 @@
+/* Styles for the Login component */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .login-card {
+    padding: 20px;
+    width: 400px;
+  }
+  
+  .login-title {
+    text-align: center;
+  }
+  
+  .alert {
+    margin-bottom: 10px;
+  }
+  
+  .input-group-text {
+    cursor: pointer;
+  }
+  
+  .login-button {
+    width: 100%;
+  }
+  
