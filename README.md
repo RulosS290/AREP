@@ -28,9 +28,14 @@ git checkout Taller7
 
 ### Ejecutando las pruebas
 
+* Instalar dependencias
+```bash
+mvn clean install
+```
+
 * Construir el proyecto
 ```bash
-mvn clean package
+mvn package
 ```
 * Compilar el proyecto
 ```bash
